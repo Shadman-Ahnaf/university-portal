@@ -1,0 +1,303 @@
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f8fafc;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.brand-panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8%;
+  overflow: hidden;
+  color: white;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.22), transparent 35%),
+    radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.18), transparent 40%),
+    linear-gradient(145deg, #0b1d33, #102e46 65%, #0b2539);
+}
+
+.brand-panel::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50%;
+  right: -230px;
+  bottom: -230px;
+  box-shadow: 0 0 0 60px rgba(255,255,255,0.025),
+              0 0 0 120px rgba(255,255,255,0.02);
+}
+
+.brand-content {
+  max-width: 560px;
+  position: relative;
+  z-index: 1;
+}
+
+.university-logo {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  margin-bottom: 55px;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #2dd4bf;
+  margin-bottom: 18px;
+}
+
+.brand-content h1 {
+  font-size: clamp(36px, 4vw, 58px);
+  line-height: 1.15;
+  letter-spacing: -2px;
+  margin: 0 0 22px;
+  font-weight: 700;
+}
+
+.brand-content > p {
+  max-width: 440px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: #c2d0dc;
+}
+
+.brand-features {
+  display: grid;
+  gap: 19px;
+  margin-top: 45px;
+}
+
+.brand-features div {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #d9e5ed;
+  font-size: 13px;
+}
+
+.brand-features svg {
+  color: #2dd4bf;
+}
+
+.brand-footer {
+  position: absolute;
+  z-index: 1;
+  bottom: 35px;
+  left: 8%;
+  right: 8%;
+  display: flex;
+  justify-content: space-between;
+  color: #91a8ba;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 55px 35px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.mobile-brand {
+  display: none;
+}
+
+.login-heading {
+  margin-bottom: 38px;
+}
+
+.login-heading h2 {
+  color: #102a43;
+  font-size: 30px;
+  letter-spacing: -0.8px;
+  margin: 0 0 10px;
+}
+
+.login-heading p {
+  color: #718096;
+  font-size: 14px;
+}
+
+.login-heading .eyebrow {
+  color: #0d9488;
+  margin-bottom: 13px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  color: #263b50;
+  font-size: 13px;
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+
+.input-wrapper {
+  height: 53px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  background: white;
+  border: 1px solid #dce4eb;
+  border-radius: 9px;
+  transition: 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: #0d9488;
+  box-shadow: 0 0 0 3px rgba(13,148,136,0.1);
+}
+
+.input-wrapper svg {
+  color: #8293a4;
+  flex-shrink: 0;
+}
+
+.input-wrapper input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #18334a;
+  font-size: 13px;
+}
+
+.input-wrapper input::placeholder {
+  color: #a0acb8;
+}
+
+.password-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-label a {
+  color: #0d9488;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.login-button {
+  width: 100%;
+  height: 53px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(100deg, #0d9488, #0f766e);
+  color: white;
+  font-size: 14px;
+  font-weight: 650;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 32px;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13,148,136,0.2);
+}
+
+.login-message {
+  font-size: 12px;
+  color: #0f766e;
+  margin-top: 15px;
+  line-height: 1.6;
+}
+
+.login-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  color: #718096;
+  font-size: 11px;
+  margin-top: 35px;
+}
+
+.login-security svg {
+  color: #0d9488;
+}
+
+.login-bottom {
+  margin-top: 65px;
+  text-align: center;
+  color: #8493a2;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.login-bottom p {
+  margin-top: 12px;
+}
+
+@media (max-width: 850px) {
+  .login-page {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-panel {
+    display: none;
+  }
+
+  .form-panel {
+    min-height: 100vh;
+    padding: 35px 24px;
+  }
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #102e46;
+    font-size: 13px;
+    font-weight: 750;
+    letter-spacing: 1px;
+    margin-bottom: 65px;
+  }
+
+  .mobile-brand svg {
+    color: #0d9488;
+  }
+
+  .login-bottom {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 420px) {
+  .login-heading h2 {
+    font-size: 26px;
+  }
+
+  .mobile-brand {
+    margin-bottom: 45px;
+  }
+}
