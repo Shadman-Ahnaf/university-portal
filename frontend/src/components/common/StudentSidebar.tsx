@@ -10,7 +10,6 @@ import {
   Wallet,
   Bus,
   History,
-  FileCheck,
   ClipboardCheck,
   X,
 } from "lucide-react";
@@ -37,14 +36,12 @@ const navigation = [
       { label: "Class Routine", path: "/student/class-routine", icon: CalendarDays },
       { label: "Exam Routine", path: "/student/exam-routine", icon: ClipboardList },
       { label: "Completed Courses", path: "/student/completed-courses", icon: History },
-      { label: "Result Verification", path: "/student/result-verification", icon: FileCheck },
     ],
   },
   {
     title: "STUDENT SERVICES",
     items: [
       { label: "Payment Information", path: "/student/payments", icon: Wallet },
-      { label: "Account Status", path: "/student/account-status", icon: ClipboardList },
       { label: "Bus Schedule", path: "/student/bus-schedule", icon: Bus },
       { label: "Course Evaluation (CIS)", path: "/student/course-evaluation", icon: ClipboardCheck },
     ],

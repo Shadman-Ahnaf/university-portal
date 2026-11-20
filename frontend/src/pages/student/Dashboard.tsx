@@ -74,14 +74,6 @@ const modules = [
     accent: "border-t-emerald-500",
   },
   {
-    title: "Account Status",
-    description: "Check your current university account status.",
-    path: "/student/account-status",
-    icon: FileCheck,
-    color: "bg-sky-100 text-sky-700",
-    accent: "border-t-sky-500",
-  },
-  {
     title: "Bus Schedule",
     description: "Find university transportation schedules and details.",
     path: "/student/bus-schedule",
@@ -96,14 +88,6 @@ const modules = [
     icon: ClipboardCheck,
     color: "bg-rose-100 text-rose-700",
     accent: "border-t-rose-500",
-  },
-  {
-    title: "Result Verification",
-    description: "Access your academic result verification information.",
-    path: "/student/result-verification",
-    icon: FileCheck,
-    color: "bg-purple-100 text-purple-700",
-    accent: "border-t-purple-500",
   },
 ];
 
@@ -120,9 +104,6 @@ export default function Dashboard() {
               <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
                 Academic Services
               </h1>
-              <p className="mt-2 text-sm text-slate-500">
-                Access your academic records and university services from one place.
-              </p>
             </div>
 
             <div className="hidden h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-teal-600 to-blue-700 text-white sm:flex">
@@ -132,20 +113,6 @@ export default function Dashboard() {
         </section>
 
         <section>
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-bold text-slate-800">
-                University Services
-              </h2>
-              <p className="mt-1 text-xs text-slate-500">
-                Select a module to continue.
-              </p>
-            </div>
-
-            <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
-              {modules.length} Modules
-            </span>
-          </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {modules.map((module) => {

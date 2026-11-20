@@ -1,5 +1,10 @@
 
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FileCheck2, LockKeyhole } from "lucide-react";
 import StudentLayout from "../../layouts/StudentLayout";
+
+const STORAGE_KEY = "student-cis-submissions";
 
 const student = {
   name: "Shadman Ahnaf",
@@ -35,6 +40,23 @@ const gradingScale = [
 ];
 
 export default function SemesterResults() {
+  const [completed, setCompleted] = useState<string[]>([]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        setCompleted(JSON.parse(saved));
+      } catch {
+        setCompleted([]);
+      }
+    }
+  }, []);
+
+  const allCompleted = results.every((course) =>
+    completed.includes(course.code)
+  );
+
   return (
     <StudentLayout>
       <div className="mx-auto max-w-6xl space-y-5">
@@ -73,96 +95,156 @@ export default function SemesterResults() {
         </div>
 
         <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 px-1.5 py-3 sm:px-5 sm:py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 px-1.5 py-3 sm:px-5 sm:py-4">
             <h2 className="font-semibold text-slate-800">Course Results</h2>
+
+            {allCompleted ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+                <FileCheck2 size={14} />
+                Results Unlocked
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700">
+                <LockKeyhole size={14} />
+                CIS Required
+              </span>
+            )}
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full table-fixed border-collapse text-left">
               <thead>
-                <tr className="bg-slate-50 text-[9px] uppercase tracking-wide sm:text-xs text-slate-500">
-                  <th className="w-16 px-1.5 py-3 sm:px-5 sm:py-4 font-semibold">No.</th>
-                  <th className="px-1.5 py-3 sm:px-5 sm:py-4 font-semibold">Course Code</th>
-                  <th className="px-1.5 py-3 sm:px-5 sm:py-4 font-semibold">Course Title</th>
-                  <th className="px-1.5 py-3 sm:px-5 sm:py-4 text-center font-semibold">
-                    Credit Hours
-                  </th>
-                  <th className="px-1.5 py-3 sm:px-5 sm:py-4 text-center font-semibold">Grade</th>
+                <tr className="bg-slate-50 text-[9px] uppercase tracking-wide text-slate-500 sm:text-xs">
+                  <th className="w-10 px-1.5 py-3 font-semibold sm:w-16 sm:px-5 sm:py-4">No.</th>
+                  <th className="px-1.5 py-3 font-semibold sm:px-5 sm:py-4">Course Code</th>
+                  <th className="px-1.5 py-3 font-semibold sm:px-5 sm:py-4">Course Title</th>
+                  <th className="px-1.5 py-3 text-center font-semibold sm:px-5 sm:py-4">Credit Hours</th>
+                  <th className="px-1.5 py-3 text-center font-semibold sm:px-5 sm:py-4">Grade</th>
+                  <th className="px-1.5 py-3 text-center font-semibold sm:px-5 sm:py-4">CIS</th>
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-slate-100">
-                {results.map((course, index) => (
-                  <tr key={course.code} className="hover:bg-slate-50/70">
-                    <td className="px-1.5 py-3 sm:px-5 sm:py-4 text-[10px] sm:text-sm text-slate-500">
-                      {index + 1}
-                    </td>
-                    <td className="whitespace-nowrap px-1.5 py-3 sm:px-5 sm:py-4 text-sm font-semibold text-slate-700">
-                      {course.code}
-                    </td>
-                    <td className="px-1.5 py-3 sm:px-5 sm:py-4 text-sm text-slate-700">
-                      {course.title}
-                    </td>
-                    <td className="px-1.5 py-3 sm:px-5 sm:py-4 text-center text-sm text-slate-600">
-                      {course.credit}
-                    </td>
-                    <td className="px-1.5 py-3 sm:px-5 sm:py-4 text-center">
-                     <span className="inline-flex min-w-10 items-center justify-center rounded-md bg-slate-100 px-2.5 py-1 text-sm font-bold text-black">
-  <span className="inline-flex w-3 justify-center">
-    {course.grade.charAt(0)}
-  </span>
-  <span className="inline-flex w-3 justify-center">
-    {course.grade.slice(1)}
-  </span>
-</span>
-                    </td>
-                  </tr>
-                ))}
+                {results.map((course, index) => {
+                  const isDone = completed.includes(course.code);
+
+                  return (
+                    <tr key={course.code} className="hover:bg-slate-50/70">
+                      <td className="px-1.5 py-3 text-[10px] text-slate-500 sm:px-5 sm:py-4 sm:text-sm">
+                        {index + 1}
+                      </td>
+
+                      <td className="whitespace-nowrap px-1.5 py-3 text-[10px] font-semibold text-slate-700 sm:px-5 sm:py-4 sm:text-sm">
+                        {course.code}
+                      </td>
+
+                      <td className="px-1.5 py-3 text-[10px] text-slate-700 sm:px-5 sm:py-4 sm:text-sm">
+                        {course.title}
+                      </td>
+
+                      <td className="px-1.5 py-3 text-center text-[10px] text-slate-600 sm:px-5 sm:py-4 sm:text-sm">
+                        {course.credit}
+                      </td>
+
+                      <td className="px-1.5 py-3 text-center sm:px-5 sm:py-4">
+                        {allCompleted ? (
+                          <span className="inline-flex min-w-10 items-center justify-center rounded-md bg-slate-100 px-2.5 py-1 text-xs font-bold text-black sm:text-sm">
+                            <span className="inline-flex w-3 justify-center">
+                              {course.grade.charAt(0)}
+                            </span>
+                            <span className="inline-flex w-3 justify-center">
+                              {course.grade.slice(1)}
+                            </span>
+                          </span>
+                        ) : (
+                          <span className="text-slate-300">—</span>
+                        )}
+                      </td>
+
+                      <td className="px-1.5 py-3 text-center sm:px-5 sm:py-4">
+                        {isDone ? (
+                          <span className="inline-flex items-center justify-center gap-1 rounded-full bg-emerald-50 px-2 py-1.5 text-[9px] font-semibold text-emerald-700 sm:px-3 sm:text-xs">
+                            <FileCheck2 size={12} />
+                            Done
+                          </span>
+                        ) : (
+                          <Link
+                            to={`/student/cis/${encodeURIComponent(course.code)}/A`}
+                            className="inline-flex whitespace-nowrap items-center justify-center rounded-md bg-[#102E46] px-2 py-2 text-[9px] font-semibold text-white hover:bg-[#194665] sm:rounded-lg sm:px-3 sm:text-xs"
+                          >
+                            Fill CIS
+                          </Link>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-1 border-t border-slate-200 bg-slate-50 px-1.5 py-3 sm:px-5 sm:py-4">
-            <span className="text-sm font-semibold text-slate-700">
-              
-            </span>
-            <span className="text-xl font-bold tabular-nums text-black">
-              SGPA: 3.58
-            </span>
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <h2 className="mb-4 text-sm font-semibold text-slate-800">
-            Grading Point Scale
-          </h2>
-
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
-            {gradingScale.map((item) => (
-              <div
-                key={item.grade}
-                className={`flex items-center justify-between rounded-lg border px-3 py-2.5 ${
-                  item.grade === "F"
-                    ? "border-red-100 bg-red-50"
-                    : item.grade === "W" || item.grade === "I"
-                      ? "border-slate-200 bg-slate-50"
-                      : "border-slate-100 bg-slate-50/70"
-                }`}
-              >
-                <span
-                  className={`text-sm font-bold ${
-                    item.grade === "F" ? "text-red-700" : "text-slate-700"
-                  }`}
-                >
-                  {item.grade}
-                </span>
-                <span className="text-sm font-medium tabular-nums text-slate-500">
-                  {item.point}
+          {!allCompleted ? (
+            <div className="border-t border-slate-200 bg-slate-50 px-4 py-4 sm:px-5">
+              <div className="flex items-center justify-between text-xs text-slate-600">
+                <span>CIS Completion</span>
+                <span className="font-semibold text-slate-900">
+                  {completed.filter((code) => results.some((course) => course.code === code)).length} / {results.length}
                 </span>
               </div>
-            ))}
-          </div>
+              <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-200">
+                <div
+                  className="h-full rounded-full bg-emerald-600 transition-all"
+                  style={{
+                    width: `${(results.filter((course) => completed.includes(course.code)).length / results.length) * 100}%`,
+                  }}
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-1 border-t border-slate-200 bg-slate-50 px-1.5 py-3 sm:px-5 sm:py-4">
+              <span className="text-sm font-semibold text-slate-700">
+                Semester GPA
+              </span>
+              <span className="text-xl font-bold tabular-nums text-black">
+                SGPA: 3.58
+              </span>
+            </div>
+          )}
         </div>
+
+        {allCompleted && (
+          <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <h2 className="mb-4 text-sm font-semibold text-slate-800">
+              Grading Point Scale
+            </h2>
+
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+              {gradingScale.map((item) => (
+                <div
+                  key={item.grade}
+                  className={`flex items-center justify-between rounded-lg border px-3 py-2.5 ${
+                    item.grade === "F"
+                      ? "border-red-100 bg-red-50"
+                      : item.grade === "W" || item.grade === "I"
+                        ? "border-slate-200 bg-slate-50"
+                        : "border-slate-100 bg-slate-50/70"
+                  }`}
+                >
+                  <span
+                    className={`text-sm font-bold ${
+                      item.grade === "F" ? "text-red-700" : "text-slate-700"
+                    }`}
+                  >
+                    {item.grade}
+                  </span>
+                  <span className="text-sm font-medium tabular-nums text-slate-500">
+                    {item.point}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </StudentLayout>
   );
