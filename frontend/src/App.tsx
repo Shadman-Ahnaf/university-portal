@@ -22,13 +22,27 @@ import PaymentHome from "./pages/payment/PaymentHome";
 import Transactions from "./pages/payment/Transactions";
 import OtherFeeTransactions from "./pages/payment/OtherFeeTransactions";
 
+
+
+
+
+
+
+
+
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/Dashboard";
+import Students from "./pages/admin/Students/Students";
+import AddStudent from "./pages/admin/Students/AddStudent";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login role="student" />} />
         <Route path="/admin-login" element={<Login role="admin" />} />
-
+<Route path="/admin" element={<AdminLayout />}>
+  <Route index element={<AdminDashboard />} />
+</Route>
         <Route path="/student/dashboard" element={<Dashboard />} />
         <Route
           path="/student/particular-information"
@@ -48,7 +62,6 @@ function App() {
           path="/student/completed-courses"
           element={<CompletedCourses />}
         />
-
         <Route
   path="/student/course-registration"
   element={<CourseRegistrationLayout />}
@@ -71,11 +84,21 @@ function App() {
             element={<OtherFeeTransactions />}
           />
         </Route>
-
+<Route path="/admin" element={<AdminLayout />}>
+  <Route index element={<AdminDashboard />} />
+  <Route path="students" element={<Students />} />
+</Route>
+<Route path="/admin" element={<AdminLayout />}>
+  <Route index element={<AdminDashboard />} />
+  <Route path="students" element={<Students />} />
+  <Route path="students/add" element={<AddStudent />} />
+</Route>
         <Route path="/student/:module" element={<StudentModule />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+
+      
     </BrowserRouter>
   );
 }
